@@ -1,4 +1,4 @@
-package br.ufc.crateus.st;
+package br.ufc.crateus.eda.st;
 
 public interface ST<K, V> {
 	V get(K key);

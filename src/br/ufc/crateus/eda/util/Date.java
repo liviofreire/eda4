@@ -1,4 +1,4 @@
-package br.ufc.crateus.util;
+package br.ufc.crateus.eda.util;
 
 public class Date {
 	int day;

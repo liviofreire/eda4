@@ -1,4 +1,4 @@
-package br.ufc.crateus.st;
+package br.ufc.crateus.eda.st;
 
 public class BinarySearchST<K extends Comparable<K>, V> implements ST<K, V> {
 	
