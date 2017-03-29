@@ -1,12 +1,13 @@
 package br.ufc.crateus.eda.st;
 
-public class BinarySearchST<K extends Comparable<K>, V> implements ST<K, V> {
+public class BinarySearchST<K extends Comparable<K>, V> implements OrderedST<K, V> {
 	
 	@SuppressWarnings("unchecked")
 	private STEntry<K, V>[] pairs = (STEntry<K, V>[]) new Object[100];
 	private int count = 0;
 	
-	private int rank(K key) {
+	@Override
+	public int rank(K key) {
 		int lo = 0;
 		int hi = count - 1;
 		
@@ -63,4 +64,57 @@ public class BinarySearchST<K extends Comparable<K>, V> implements ST<K, V> {
 		return null;
 	}
 
+	@Override
+	public K min() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K max() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K floor(K key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K ceiling(K key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public K select(int n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteMax() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteMin() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int size(K lo, K hi) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Iterable<K> keys(K lo, K hi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
