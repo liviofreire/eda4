@@ -5,9 +5,9 @@ import java.util.Queue;
 
 public class BinarySearchTreeST<K extends Comparable<K>, V> implements OrderedST<K, V> {
 	
-	private Node root; 
+	protected Node root; 
 	
-	private class Node extends STEntry<K, V> {
+	protected class Node extends STEntry<K, V> {
 		
 		Node  left, right;
 		int count;
