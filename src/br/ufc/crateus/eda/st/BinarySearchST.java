@@ -1,120 +1,130 @@
 package br.ufc.crateus.eda.st;
 
 public class BinarySearchST<K extends Comparable<K>, V> implements OrderedST<K, V> {
+	private K[] keys;
+	private V[] values;
+	private int length;
 	
 	@SuppressWarnings("unchecked")
-	private STEntry<K, V>[] pairs = (STEntry<K, V>[]) new Object[100];
-	private int count = 0;
+	public BinarySearchST(int size) {
+		this.keys = (K[]) new Object[size];
+		this.values = (V[]) new Object[size];
+		this.length = 0;
+	}
 	
-	@Override
 	public int rank(K key) {
-		int lo = 0;
-		int hi = count - 1;
-		
-		while (lo <= hi) {
-			int mid = lo + (hi - lo) / 2;
-			STEntry<K, V> e = pairs[mid];
-			
-			if (key.compareTo(e.key) < 0) hi = mid - 1;
-			if (key.compareTo(e.key) > 0) lo = mid + 1;
-			else return mid;
+		int lo = 0, hi = length - 1;
+		while (lo < hi) {
+			int m = (lo + hi) / 2;
+			int cmp = key.compareTo(keys[m]);
+			if (cmp < 0) hi = m - 1;
+			else if (cmp > 0) lo = m + 1;
+			return m;
 		}
 		return lo;
 	}
 
 	@Override
-	public V get(K key) {
-		int pos = rank(key);
-		return  (key.equals(pairs[pos].key))? pairs[pos].value : null;
-	}
-
-	@Override
 	public void put(K key, V value) {
-		// TODO Auto-generated method stub
-		
+		int j = rank(key);
+ 		if (!key.equals(keys[j])) {
+ 			for (int i = length; i > j; i--) { 
+ 				keys[i] = keys[i - 1];
+ 				values[i] = values[i - 1];
+ 			}
+ 			length++;
+ 		}
+ 		keys[j] = key;
+ 		values[j] = value;
 	}
 
 	@Override
-	public boolean contains(K key) {
-		// TODO Auto-generated method stub
-		return false;
+	public V get(K key) {
+		int j = rank(key);
+ 		return (key.equals(keys[j]))? values[j] : null;
 	}
 
 	@Override
 	public void delete(K key) {
-		// TODO Auto-generated method stub
-		
+		int j = rank(key);
+		if (key.equals(keys[j])) {
+ 			for (int i = j; i < length - 1; i++) {
+ 				keys[i] = keys[i + 1];
+ 				values[i] = values[i + 1];
+ 			}
+ 			length--;
+		}
+	}
+	
+	@Override
+	public boolean contains(K key) {
+		return get(key) != null;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return length == 0;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return length;
 	}
 
-	@Override
 	public Iterable<K> keys() {
-		// TODO Auto-generated method stub
 		return null;
+//		return keys;
 	}
 
 	@Override
 	public K min() {
-		// TODO Auto-generated method stub
-		return null;
+		return keys[0];
 	}
 
 	@Override
 	public K max() {
-		// TODO Auto-generated method stub
-		return null;
+		return keys[length - 1];
 	}
 
 	@Override
 	public K floor(K key) {
-		// TODO Auto-generated method stub
-		return null;
+		int j = rank(key);
+		if (key.equals(keys[j])) return key;
+		return (j > 0)? keys[j - 1] : null;
 	}
 
 	@Override
 	public K ceiling(K key) {
-		// TODO Auto-generated method stub
-		return null;
+		int j = rank(key);
+		return keys[j];
 	}
 
 	@Override
-	public K select(int n) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteMax() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteMin() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int size(K lo, K hi) {
-		// TODO Auto-generated method stub
-		return 0;
+	public K select(int i) {
+		return keys[i];
 	}
 
 	@Override
 	public Iterable<K> keys(K lo, K hi) {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int size(K lo, K hi) {
+		return rank(hi) - rank(lo);
+	}
+
+	@Override
+	public void deleteMax() {
+		length--;
+	}
+
+	@Override
+	public void deleteMin() {
+		for (int i = 0; i < length - 1; i++) {
+			keys[i] = keys[i + 1];
+			values[i] = values[i + 1];
+		}
+		length--;
 	}
 }
