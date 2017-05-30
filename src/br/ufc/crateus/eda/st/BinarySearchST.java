@@ -127,4 +127,13 @@ public class BinarySearchST<K extends Comparable<K>, V> implements OrderedST<K, 
 		}
 		length--;
 	}
+	
+	public static void main(String[] args) {
+		BinarySearchST<String, Integer> st = new BinarySearchST<>(10);
+		st.put("abc", 1);
+		st.put("bcd", 2);
+		st.put("cde", 3);
+		
+		for (String key : st.keys) System.out.println(key);
+	}
 }
